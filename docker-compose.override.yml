@@ -1,0 +1,38 @@
+version: "3.4"
+services:
+  netbox:
+    #image: &NetboxImage netboxcommunity/netbox:${VERSION-latest-ldap}
+    ports:
+      - 80:8080
+    #environment:
+      #REMOTE_AUTH_ENABLED: "false"
+      #REMOTE_AUTH_BACKEND: "netbox.authentication.LDAPBackend"
+      #AUTH_LDAP_SERVER_URI: "ldap://dc01.claranet.private"
+      #AUTH_LDAP_BIND_DN: "CN=CCIP-NET SVC - LOG,OU=CCIP-NET,OU=Service Accounts,DC=claranet,DC=private"
+      #AUTH_LDAP_BIND_PASSWORD: "Ff8OlOvXJdlSRfRMADjp"
+      #AUTH_LDAP_USER_SEARCH_BASEDN: "OU=CCIP-NET,OU=User Accounts,DC=claranet,DC=private"
+      #AUTH_LDAP_GROUP_SEARCH_BASEDN: "DC=claranet,DC=private"
+      #AUTH_LDAP_REQUIRE_GROUP_DN:  "CN=PT-BUHN-CCIP-NET" #"cn=netbox" # or "cn=netbox,ou=groups,dc=domain,dc=com"
+      #AUTH_LDAP_IS_ACTIVE_DN: "CN=PT-BUHN-CCIP-NET,OU=CCIP-NET,OU=Groups,DC=claranet,DC=private"
+      #AUTH_LDAP_IS_ADMIN_DN: "CN=PT-BUHN-CCIP-NET,OU=CCIP-NET,OU=Groups,DC=claranet,DC=private"
+      #AUTH_LDAP_IS_STAFF_DN: "CN=PT-BUHN-CCIP-NET,OU=CCIP-NET,OU=Groups,DC=claranet,DC=private"
+      #AUTH_LDAP_IS_SUPERUSER_DN: "CN=PT-BUHN-CCIP-NET,OU=CCIP-NET,OU=Groups,DC=claranet,DC=private"
+      #LDAP_IGNORE_CERT_ERRORS: "true"
+      #AUTH_LDAP_MIRROR_GROUPS: "true"
+      #AUTH_LDAP_FIND_GROUP_PERMS: "true"
+      #AUTH_LDAP_CACHE_GROUPS: "true"
+      #AUTH_LDAP_GROUP_CACHE_TIMEOUT: "3600"
+    volumes:
+    - ../netbox-media-files:/opt/netbox/netbox/media:z
+  # netbox-worker:
+  #   image: *NetboxImage
+
+  postgres:
+    # ports:
+    # - 5432:5432
+    volumes:
+    - ../netbox-postgres-data:/var/lib/postgresql/data
+
+  redis:
+    volumes:
+    - ../netbox-redis-data:/data
